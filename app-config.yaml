@@ -3,7 +3,7 @@ app:
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: XXX
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -70,27 +70,28 @@ scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
-  import:
-    entityFilename: catalog-info.yaml
-    pullRequestBranchName: backstage-integration
+  # import:
+  #   entityFilename: catalog-info.yaml
+  #   pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location]
-  locations:
-    # Local example data, file locations are relative to the backend process, typically `packages/backend`
-    - type: file
-      target: ../../examples/entities.yaml
+    - allow: [Component, System, API, Resource, Location, User, Group, Template, System, Domain]
 
-    # Local example template
-    - type: file
-      target: ../../examples/template/template.yaml
-      rules:
-        - allow: [Template]
+  providers:
+    github:
+      providerId:
+        organization: "shannammtf"
+        catalogPath: '/catalog-info.yaml' 
+        # create template that locates catalog-info.yaml file under main fodler of repo
+        filters:
+          branch: 'prod'
+          repository: '.*'
+        schedule:
+          frequency: { minutes: 5 }
+          # supports ISO duration, "human duration" as used in code
+          timeout: { minutes: 2 }
 
-    # Local example organizational data
-    - type: file
-      target: ../../examples/org.yaml
-      rules:
-        - allow: [User, Group]
+  # locations:
+ 
 
     ## Uncomment these lines to add more example data
     # - type: url
