@@ -80,10 +80,10 @@ catalog:
     github:
       providerId:
         organization: "shannammtf"
-        catalogPath: '/catalog-info.yaml' 
+        catalogPath: '/backstage-entity-*' 
         # create template that locates catalog-info.yaml file under main fodler of repo
         filters:
-          branch: 'prod'
+          branch: 'dev'
           repository: '.*'
         schedule:
           frequency: { minutes: 5 }
